@@ -8,6 +8,12 @@ module.exports = function (config) {
     // frameworks to use
     frameworks: ['jasmine'],
 
+    plugins:[
+      'karma-jasmine',
+      'karma-coverage',
+      'karma-phantomjs-launcher'
+    ],
+
     // list of files / patterns to load in the browser
     files : [
       'helper/SpecHelper.js',
