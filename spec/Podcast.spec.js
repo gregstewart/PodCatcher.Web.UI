@@ -38,7 +38,7 @@ describe('Podcast', function () {
 
       expect(this.server.requests[0].method).toEqual("POST");
       expect(this.server.requests[0].url).toEqual("/api/podcast/");
-      expect(this.server.requests[0].responseHeaders['Location']).toEqual(location);
+      expect(this.server.requests[0].responseHeaders.Location).toEqual(location);
       expect(JSON.parse(this.server.requests[0].responseText)).toEqual(this.podcast.attributes);
     });
   });
