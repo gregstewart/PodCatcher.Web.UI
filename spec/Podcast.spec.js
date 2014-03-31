@@ -1,21 +1,15 @@
 describe('Podcast', function () {
   beforeEach(function () {
     this.podcast = new Podcatcher.Podcast();
+    this.server = sinon.fakeServer.create();
   });
 
   afterEach(function () {
-    this.podcast.clear();
+    this.podcast.clear({silent: true});
+    this.server.restore();
   });
 
-
   describe('POST new podcast', function () {
-    beforeEach(function () {
-      this.server = sinon.fakeServer.create();
-    });
-
-    afterEach(function () {
-      this.server.restore();
-    });
 
     it('sets the collection URI with the response header value from the service and calls fetch', function (done) {
       var url = "/api/podcast/";
@@ -43,4 +37,26 @@ describe('Podcast', function () {
     });
   });
 
+  describe('validate attributes', function () {
+
+    it('should not save a podcast when the Uri is missing', function () {
+      var error = sinon.spy();
+      this.podcast.bind("invalid", error);
+
+      this.podcast.save();
+
+      expect(error.calledOnce).toBe(true);
+      expect(error.calledWith(this.podcast, "cannot have empty Uri")).toBe(true);
+    });
+
+    it('should not save a podcast when the Uri is empty', function () {
+      var error = sinon.spy();
+      this.podcast.bind("invalid", error);
+
+      this.podcast.save({Uri: ""});
+
+      expect(error.calledOnce).toBe(true);
+      expect(error.calledWith(this.podcast, "cannot have empty Uri")).toBe(true);
+    });
+  });
 });
