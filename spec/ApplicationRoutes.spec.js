@@ -1,6 +1,7 @@
-describe('Application router', function () {
+describe('APPLICATION ROUTES', function () {
   beforeEach(function () {
-    this.router = new Podcatcher.ApplicationRouter();
+    var vent = _.extend({}, Backbone.Events);
+    this.router = new Podcatcher.ApplicationRouter({vent: vent});
     this.indexRouteStub = sinon.stub(this.router, 'index');
     this.browseRouteStub = sinon.stub(this.router, 'browse');
     this.addPodcastRouteStub = sinon.stub(this.router, 'addPodcast');

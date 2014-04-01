@@ -7,6 +7,10 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
     'add-podcast': 'addPodcast'
   },
 
+  initialize: function(options) {
+    this.vent = options.vent;
+  },
+
   index: function () {
     console.log('index');
   },
@@ -21,7 +25,8 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
   addPodcast: function () {
 
     this.resetViews();
-    this.view = new Podcatcher.PodcastSaveView({model: new Podcatcher.Podcast()});
+    var podcast = new Podcatcher.Podcast({vent: this.vent});
+    this.view = new Podcatcher.PodcastSaveView({model: podcast, vent: this.vent});
     this.view.render();
   },
 
