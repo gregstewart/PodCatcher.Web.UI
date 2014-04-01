@@ -92,6 +92,17 @@ describe('Podcast Save View', function () {
         });
       });
 
+      describe('podcast:added:fail event', function () {
+        it('shows an error message', function () {
+          var notification = this.view.$el.find('.notification');
+
+          this.vent.trigger('podcast:added:fail');
+          expect(notification.hasClass('hidden')).toBe(false);
+          expect(notification.hasClass('error')).toBe(true);
+          expect(notification.html()).toBe('<p>Podcast not added</p>');
+
+        });
+      });
     });
 
   });

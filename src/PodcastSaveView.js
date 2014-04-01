@@ -10,13 +10,14 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
     this.vent = options.vent;
 
     this.vent.bind('podcast:added', this.podcastAdded, this);
+    this.vent.bind('podcast:added:fail', this.podcastNotAdded, this);
   },
 
   savePodcast: function(e) {
     e.preventDefault();
     var notification = this.$el.find('.notification');
     notification.addClass('hidden');
-    notification.removeClass('error');
+    notification.removeClass('error success');
 
     this.model.set({Uri: this.$el.find('input').val()});
     this.model.save(null, {success: this.model.success}, {wait: true});
@@ -35,6 +36,15 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
     notification.addClass('success');
     notification.removeClass('hidden');
     notification.html(template({Id: data.Id, Title: data.Title}));
+  },
+
+  podcastNotAdded: function (data) {
+    var notification = this.$el.find('.notification'),
+        template = _.template('<p>Podcast not added</p>');
+
+    notification.addClass('error');
+    notification.removeClass('hidden');
+    notification.html(template());
   },
 
   events: {

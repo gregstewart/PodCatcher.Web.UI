@@ -17,5 +17,9 @@ Podcatcher.Podcast = Backbone.Model.extend({
   success: function(response) {
     this.attributes = response.attributes;
     this.vent.trigger('podcast:added', response.attributes);
+  },
+
+  error: function(response) {
+    this.vent.trigger('podcast:added:fail');
   }
 });

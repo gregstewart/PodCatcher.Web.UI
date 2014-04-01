@@ -54,6 +54,24 @@ describe('Podcast', function () {
 
       this.podcast.success.restore();
     });
+
+    it('calls error handler when response is an error code', function () {
+      var url = "/api/podcast/",
+          location = url + "some-id";
+      errorHandler = sinon.stub(this.podcast, 'error');
+
+      this.podcast.set({Uri: 'some-uri'});
+      this.server.respondWith("POST", url,
+          [404, { "Content-Type": "application/json"},
+            JSON.stringify({})]);
+
+      this.podcast.save(null, {error: this.podcast.error});
+      this.server.respond();
+
+      expect(this.podcast.error.calledOnce).toBe(true);
+
+      this.podcast.error.restore();
+    });
   });
 
   describe('success handler', function () {
@@ -70,6 +88,20 @@ describe('Podcast', function () {
 
       expect(this.vent.trigger.calledOnce).toBe(true);
       expect(this.vent.trigger.calledWith('podcast:added', this.result)).toBe(true);
+
+      this.vent.trigger.restore();
+    });
+  });
+
+  describe('error handler', function () {
+
+    it('triggers an event to show error in view', function () {
+      sinon.stub(this.vent, 'trigger');
+
+      this.podcast.error();
+
+      expect(this.vent.trigger.calledOnce).toBe(true);
+      expect(this.vent.trigger.calledWith('podcast:added:fail')).toBe(true);
 
       this.vent.trigger.restore();
     });
