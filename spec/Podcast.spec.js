@@ -22,6 +22,7 @@ describe('Podcast', function () {
         location = url + "some-id";
 
       this.podcast.set({Uri: 'some-uri'});
+
       this.server.respondWith("POST", url,
           [201, { "Content-Type": "application/json",
             "Location": location },
@@ -36,75 +37,6 @@ describe('Podcast', function () {
       expect(JSON.parse(this.server.requests[0].responseText).Id).toEqual(this.podcast.attributes.Id);
     });
 
-    it('calls success handler when response is CREATED', function () {
-      var url = "/api/podcast/",
-        location = url + "some-id";
-        successHandler = sinon.stub(this.podcast, 'success');
-
-      this.podcast.set({Uri: 'some-uri'});
-      this.server.respondWith("POST", url,
-          [201, { "Content-Type": "application/json",
-            "Location": location },
-            JSON.stringify(this.result)]);
-
-      this.podcast.save(null, {success: this.podcast.success});
-      this.server.respond();
-
-      expect(this.podcast.success.calledOnce).toBe(true);
-
-      this.podcast.success.restore();
-    });
-
-    it('calls error handler when response is an error code', function () {
-      var url = "/api/podcast/",
-          location = url + "some-id";
-      errorHandler = sinon.stub(this.podcast, 'error');
-
-      this.podcast.set({Uri: 'some-uri'});
-      this.server.respondWith("POST", url,
-          [404, { "Content-Type": "application/json"},
-            JSON.stringify({})]);
-
-      this.podcast.save(null, {error: this.podcast.error});
-      this.server.respond();
-
-      expect(this.podcast.error.calledOnce).toBe(true);
-
-      this.podcast.error.restore();
-    });
-  });
-
-  describe('success handler', function () {
-    it('replaced the model with the data from the response', function () {
-      var model = new Backbone.Model(this.result);
-      this.podcast.success(model);
-      expect(this.podcast.get('Id')).toBe(this.result.Id);
-    });
-
-    it('triggers an event to update the view', function () {
-      sinon.stub(this.vent, 'trigger');
-      var model = new Backbone.Model(this.result);
-      this.podcast.success(model);
-
-      expect(this.vent.trigger.calledOnce).toBe(true);
-      expect(this.vent.trigger.calledWith('podcast:added', this.result)).toBe(true);
-
-      this.vent.trigger.restore();
-    });
-  });
-
-  describe('error handler', function () {
-
-    it('triggers an event to show error in view', function () {
-      sinon.stub(this.vent, 'trigger');
-
-      this.podcast.error();
-
-      expect(this.vent.trigger.calledOnce).toBe(true);
-      expect(this.vent.trigger.calledWith('podcast:added:fail')).toBe(true);
-
-      this.vent.trigger.restore();
-    });
   });
 
   describe('validate attributes', function () {
