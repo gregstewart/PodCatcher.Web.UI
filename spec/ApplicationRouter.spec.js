@@ -2,7 +2,7 @@ describe('APPLICATION ROUTER', function () {
   beforeEach(function () {
     var vent = _.extend({}, Backbone.Events);
     this.router = new Podcatcher.ApplicationRouter({vent: vent});
-    this.model = new Podcatcher.Podcast({vent: vent});
+    this.model = new Podcatcher.Podcast();
     this.podcastSaveViewStub = sinon.stub(Podcatcher, "PodcastSaveView").returns(new Backbone.View({model: this.model,
       vent: vent}));
   });
