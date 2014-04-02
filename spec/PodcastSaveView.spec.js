@@ -87,7 +87,7 @@ describe('Podcast Save View', function () {
 
           expect(notification.hasClass('hidden')).toBe(false);
           expect(notification.hasClass('success')).toBe(true);
-          expect(notification.html()).toBe('<p>Podcast '+result.Title+' added, <a href="podcast/details/'+result.Id+'">you can view it here</a></p>');
+          expect(notification.html()).toBe('Podcast '+result.Title+' added, <a href="podcast/details/'+result.Id+'">you can view it here</a>');
 
         });
       });
@@ -99,7 +99,7 @@ describe('Podcast Save View', function () {
           this.vent.trigger('podcast:added:fail');
           expect(notification.hasClass('hidden')).toBe(false);
           expect(notification.hasClass('error')).toBe(true);
-          expect(notification.html()).toBe('<p>Podcast not added</p>');
+          expect(notification.html()).toBe('Podcast not added');
 
         });
       });
