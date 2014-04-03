@@ -74,6 +74,18 @@ describe('Podcast Save View', function () {
       });
 
       describe('podcast:added event', function () {
+        it('triggers event when success handler is called', function () {
+          sinon.stub(this.vent, 'trigger');
+          var response = { attributes : 'attributes' };
+
+          this.view.successHandler(response);
+
+          expect(this.vent.trigger.called).toBe(true);
+          expect(this.vent.trigger.calledWith('podcast:added', response.attributes)).toBe(true);
+
+          this.vent.trigger.restore();
+        });
+
         it('shows a message with a link', function () {
           var result = { "Id":"7ebdb1a0-c419-43c6-9129-4d1f8c7951ee",
                 "Title":"Convert to Raid: The podcast for raiders in World of Warcraft",
@@ -93,6 +105,17 @@ describe('Podcast Save View', function () {
       });
 
       describe('podcast:added:fail event', function () {
+        it('triggers event when error handler is called', function () {
+          sinon.stub(this.vent, 'trigger');
+
+          this.view.errorHandler();
+
+          expect(this.vent.trigger.called).toBe(true);
+          expect(this.vent.trigger.calledWith('podcast:added:fail')).toBe(true);
+
+          this.vent.trigger.restore();
+        });
+
         it('shows an error message', function () {
           var notification = this.view.$el.find('.notification');
 

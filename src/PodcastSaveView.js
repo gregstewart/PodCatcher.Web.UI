@@ -22,18 +22,21 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
 
     this.model.set({Uri: this.$el.find('input').val()});
 
-    this.model.save(null, {success: function(response) {
-        self.vent.trigger('podcast:added', response.attributes);
-      }, error: function() {
-        self.vent.trigger('podcast:added:fail');
-      }
-    }, {wait: true});
+    this.model.save(null, {success: this.successHandler, error: this.errorHandler}, {wait: true});
 
     if(!this.model.isValid()) {
       notification.removeClass('hidden');
       notification.addClass('error');
       notification.html(this.model.validationError);
     }
+  },
+
+  successHandler: function(response) {
+    this.vent.trigger('podcast:added', response.attributes);
+  },
+
+  errorHandler: function() {
+    this.vent.trigger('podcast:added:fail');
   },
 
   podcastAdded: function (data) {
