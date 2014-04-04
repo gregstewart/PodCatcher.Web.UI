@@ -22,7 +22,6 @@ describe('APPLICATION ROUTER', function () {
 
       this.router.addPodcast();
 
-      console.log(podcastSaveViewStub.getCall(0).args[0]);
       expect(podcastSaveViewStub.calledOnce).toBe(true);
       expect(podcastSaveViewStub.calledWithMatch({model: model, vent: this.vent})).toBe(true);
 

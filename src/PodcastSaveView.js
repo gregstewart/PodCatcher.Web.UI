@@ -5,12 +5,22 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
   tagName: 'article',
   className: 'podcast add-podcast',
 
+  events: {
+    'click button': 'savePodcast'
+  },
+
   initialize: function(options) {
     this.model = options.model;
     this.vent = options.vent;
 
     this.vent.bind('podcast:added', this.podcastAdded, this);
     this.vent.bind('podcast:added:fail', this.podcastNotAdded, this);
+  },
+
+  render: function () {
+    var saveView = this.$el.html(this.template());
+    $('#podcatcher').html(saveView);
+    return this;
   },
 
   savePodcast: function(e) {
@@ -55,16 +65,6 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
     notification.addClass('error');
     notification.removeClass('hidden');
     notification.html(template());
-  },
-
-  events: {
-    'click button': 'savePodcast'
-  },
-
-  render: function () {
-    var saveView = this.$el.html(this.template());
-    $('#podcatcher').html(saveView);
-    return this;
   }
 
 });
