@@ -66,7 +66,7 @@ describe('APPLICATION ROUTES', function () {
     });
   });
 
-  describe('add podcast route', function () {
+  describe('add-podcast route', function () {
 
     it('/add-podcast - route exists and points to the right method', function () {
       expect(this.router.routes['add-podcast']).toEqual('addPodcast');

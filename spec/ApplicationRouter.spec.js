@@ -1,15 +1,9 @@
 describe('APPLICATION ROUTER', function () {
   beforeEach(function () {
-    var vent = _.extend({}, Backbone.Events);
-    this.router = new Podcatcher.ApplicationRouter({vent: vent});
-    this.model = new Podcatcher.Podcast();
-    this.podcastSaveViewStub = sinon.stub(Podcatcher, "PodcastSaveView").returns(new Backbone.View({model: this.model,
-      vent: vent}));
+    this.vent = { bind: function () {}};
+    this.router = new Podcatcher.ApplicationRouter({vent: this.vent});
   });
 
-  afterEach(function () {
-    this.podcastSaveViewStub.restore();
-  });
 
   describe('add podcast route', function () {
 
@@ -22,8 +16,18 @@ describe('APPLICATION ROUTER', function () {
     });
 
     it('sets up a model and a view when triggered', function () {
+      var model = new Backbone.Model(),
+          podcastStub = sinon.stub(Podcatcher, 'Podcast').returns(model),
+          podcastSaveViewStub = sinon.stub(Podcatcher, "PodcastSaveView").returns(new Backbone.View());
+
       this.router.addPodcast();
-      expect(this.podcastSaveViewStub.calledOnce).toBe(true);
+
+      console.log(podcastSaveViewStub.getCall(0).args[0]);
+      expect(podcastSaveViewStub.calledOnce).toBe(true);
+      expect(podcastSaveViewStub.calledWithMatch({model: model, vent: this.vent})).toBe(true);
+
+      podcastSaveViewStub.restore();
+      podcastStub.restore();
     });
   });
 
@@ -36,6 +40,21 @@ describe('APPLICATION ROUTER', function () {
       expect(resetViewsStub.calledOnce).toBe(true);
     });
 
+    it('sets up the browse view', function () {
+      var collection = new Backbone.Collection();
+      var collectionStub = sinon.stub(collection, 'fetch').returns(null);
+      var PodcastCollectionStub = sinon.stub(Podcatcher, "PodcastCollection").returns(collection);
+      var browsePodcastViewStub = sinon.stub(Podcatcher, "BrowsePodcastView").returns(new Backbone.View());
 
+      this.router.browse();
+
+      expect(PodcastCollectionStub.calledOnce).toBe(true);
+      expect(browsePodcastViewStub.calledOnce).toBe(true);
+      expect(browsePodcastViewStub.calledWith({collection: collection})).toBe(true);
+      expect(collectionStub.calledOnce).toBe(true);
+
+      PodcastCollectionStub.restore();
+      browsePodcastViewStub.restore();
+    });
   });
 });

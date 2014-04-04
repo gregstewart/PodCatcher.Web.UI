@@ -16,17 +16,18 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
   },
 
   browse: function () {
-
     this.resetViews();
-
-    console.log('browse');
+    var collection = new Podcatcher.PodcastCollection(),
+        view = new Podcatcher.BrowsePodcastView({collection: collection});
+    collection.fetch();
   },
 
   addPodcast: function () {
     this.resetViews();
-    var podcast = new Podcatcher.Podcast();
-    this.view = new Podcatcher.PodcastSaveView({model: podcast, vent: this.vent});
-    this.view.render();
+    var podcast = new Podcatcher.Podcast(),
+        view = new Podcatcher.PodcastSaveView({model: podcast, vent: this.vent});
+
+    view.render();
   },
 
   resetViews: function () {
