@@ -29,39 +29,66 @@ describe('BROWSE PODCAST VIEW', function () {
       this.podcastTwo = new Backbone.Model({id: 2});
       this.podcastThree = new Backbone.Model({id: 3});
 
-      this.view.collection = new Backbone.Collection([
-        this.podcastOne,
-        this.podcastTwo,
-        this.podcastThree
-      ]);
-
-      this.view.render();
     });
 
     afterEach(function () {
       this.podcastViewStub.restore();
     });
 
-    it('inserts a ul element into the article element', function () {
-      expect($(this.view.el).find('ul').length).toBe(1);
+    describe('with data', function () {
+
+      beforeEach(function () {
+        this.view.collection = new Backbone.Collection([
+          this.podcastOne,
+          this.podcastTwo,
+          this.podcastThree
+        ]);
+
+        this.view.render();
+      });
+
+      afterEach(function () {
+        this.view.collection.reset();
+      });
+
+      it('inserts a ul element into the article element', function () {
+        expect($(this.view.el).find('ul').length).toBe(1);
+      });
+
+      it('creates a podcast view for each item in the collection', function () {
+        expect(this.podcastViewStub.calledThrice).toBe(true);
+        expect(this.podcastViewStub.calledWith({model: this.podcastOne}));
+        expect(this.podcastViewStub.calledWith({model: this.podcastTwo}));
+        expect(this.podcastViewStub.calledWith({model: this.podcastThree}));
+      });
+
+      it('renders a podcast view', function () {
+        expect(this.podcastView.render.calledThrice).toBe(true);
+      });
+
+      it('appends the podcast to the podcast list', function () {
+        expect($(this.view.el).find('ul.podcasts').children().length).toEqual(3);
+      });
     });
 
-    it('creates a podcast view for each item in the collection', function () {
-      expect(this.podcastViewStub.calledThrice).toBe(true);
-      expect(this.podcastViewStub.calledWith({model: this.podcastOne}));
-      expect(this.podcastViewStub.calledWith({model: this.podcastTwo}));
-      expect(this.podcastViewStub.calledWith({model: this.podcastThree}));
-    });
+    describe('without data', function () {
+      beforeEach(function () {
+        this.view.collection = new Backbone.Collection();
 
-    it('renders a podcast view', function () {
-      expect(this.podcastView.render.calledThrice).toBe(true);
-    });
+        this.view.render();
+      });
 
-    it('appends the podcast to the podcast list', function () {
-      expect($(this.view.el).find('ul.podcasts').children().length).toEqual(3);
-    });
+      it('does not create a ul element', function () {
+        expect($(this.view.el).find('ul').length).toBe(0);
+      });
 
-    //TOOO: empty state - no podcasts or error retrieving
+      it('instead create a notification element', function () {
+        var notification = this.view.$el.find('.notification');
+
+        expect(notification.length).toBe(1);
+        expect(notification.html()).toBe('No podcasts found');
+      });
+    });
   });
 
 });

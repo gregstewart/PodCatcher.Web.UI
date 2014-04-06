@@ -4,6 +4,7 @@ Podcatcher.BrowsePodcastView = Backbone.View.extend({
   tagName: 'article',
   className: 'podcast browse-podcasts',
   template : _.template('<ul class="podcasts"></ul>'),
+  notificationTemplate : _.template('<div class="notification"></div>'),
 
   initialize: function (options) {
     this.collection = options.collection;
@@ -11,15 +12,21 @@ Podcatcher.BrowsePodcastView = Backbone.View.extend({
   },
 
   render: function () {
-    var self = this;
-    var listView = this.$el.html(this.template());
+    var self = this,
+        output;
 
-    this.collection.each(function(model) {
-      self.$el.find('ul.podcasts').append(self.addPodcastView(model));
-    });
+    if (this.collection.length > 0) {
+      output = this.$el.html(this.template());
+      this.collection.each(function(model) {
+        self.$el.find('ul.podcasts').append(self.addPodcastView(model));
+      });
+    } else {
+      output = this.$el.html(this.notificationTemplate());
+      var notification = this.$el.find('.notification');
+      notification.html('No podcasts found');
+    }
 
-    $('#podcatcher').html(listView);
-
+    $('#podcatcher').html(output);
     return this;
   },
 
