@@ -7,6 +7,7 @@ Podcatcher.BrowsePodcastView = Backbone.View.extend({
 
   initialize: function (options) {
     this.collection = options.collection;
+    this.listenTo(this.collection, 'add', this.render);
   },
 
   render: function () {
@@ -23,7 +24,7 @@ Podcatcher.BrowsePodcastView = Backbone.View.extend({
   },
 
   addPodcastView: function (podcast) {
-    var view = new Podcatcher.PodcastView(podcast);
+    var view = new Podcatcher.PodcastView({model: podcast});
     return view.render().el;
   }
 });

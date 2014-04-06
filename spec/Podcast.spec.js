@@ -23,7 +23,7 @@ describe('Podcast', function () {
 
   describe('save', function () {
     it('successfully posts a podcast', function (done) {
-      var url = "/api/podcasts/",
+      var url = "/api/podcasts",
         location = url + "some-id";
 
       this.podcast.set({Uri: 'some-uri'});
@@ -37,7 +37,7 @@ describe('Podcast', function () {
       this.server.respond();
 
       expect(this.server.requests[0].method).toEqual("POST");
-      expect(this.server.requests[0].url).toEqual("/api/podcasts/");
+      expect(this.server.requests[0].url).toEqual("/api/podcasts");
       expect(this.server.requests[0].responseHeaders.Location).toEqual(location);
       expect(JSON.parse(this.server.requests[0].responseText).Id).toEqual(this.podcast.attributes.Id);
       expect(JSON.parse(this.server.requests[0].responseText).Metadata.Link).toEqual(this.podcast.url());
