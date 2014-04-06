@@ -40,20 +40,43 @@ describe('APPLICATION ROUTER', function () {
     });
 
     it('sets up the browse view', function () {
-      var collection = new Backbone.Collection();
-      var collectionStub = sinon.stub(collection, 'fetch').returns(null);
-      var PodcastCollectionStub = sinon.stub(Podcatcher, "PodcastCollection").returns(collection);
+      var collectionStub = sinon.stub(this.router.collection, 'fetch').returns(null);
       var browsePodcastViewStub = sinon.stub(Podcatcher, "BrowsePodcastView").returns(new Backbone.View());
 
       this.router.browse();
 
-      expect(PodcastCollectionStub.calledOnce).toBe(true);
       expect(browsePodcastViewStub.calledOnce).toBe(true);
-      expect(browsePodcastViewStub.calledWith({collection: collection})).toBe(true);
+      expect(browsePodcastViewStub.calledWith({collection: this.router.collection})).toBe(true);
       expect(collectionStub.calledOnce).toBe(true);
 
-      PodcastCollectionStub.restore();
       browsePodcastViewStub.restore();
+    });
+  });
+
+  describe('podcast detail route', function () {
+
+    it('calls the hide all method before calling it\' s view render', function () {
+      var resetViewsStub = sinon.stub(this.router, 'resetViews');
+
+      this.router.podcastDetail();
+
+      expect(resetViewsStub.calledOnce).toBe(true);
+    });
+
+    it('finds the model requested and sets up the view when triggered', function () {
+      var id = 1;
+      var model = new Backbone.Model({Id: id}),
+          podcastStub = sinon.stub(Podcatcher, 'Podcast').returns(model),
+          podcastDetailViewStub = sinon.stub(Podcatcher, 'PodcastDetailView').returns(new Backbone.View());
+      this.router.collection.add(model);
+
+      this.router.podcastDetail(id);
+
+      expect(podcastDetailViewStub.calledOnce).toBe(true);
+      expect(podcastDetailViewStub.calledWith({model: model, vent: this.vent})).toBe(true);
+
+      podcastDetailViewStub.restore();
+      podcastStub.restore();
     });
   });
 });
