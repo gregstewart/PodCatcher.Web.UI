@@ -1,5 +1,6 @@
 describe('BROWSE PODCAST VIEW', function () {
   beforeEach(function () {
+
     this.collection = new Backbone.Collection();
     this.view = new Podcatcher.BrowsePodcastView({collection: this.collection});
   });
@@ -58,6 +59,8 @@ describe('BROWSE PODCAST VIEW', function () {
       it('appends the podcast to the podcast list', function() {
         expect($(this.view.el).find('ul.podcasts').children().length).toEqual(3);
       });
+
+      //TOOO: empty state - no podcasts or error retrieving
     });
   });
 });

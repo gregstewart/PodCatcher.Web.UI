@@ -1,5 +1,6 @@
 describe('Podcast', function () {
   beforeEach(function () {
+    Podcatcher.baseUrl = '';
     this.vent = _.extend({}, Backbone.Events);
     this.podcast = new Podcatcher.Podcast({vent: this.vent});
     this.server = sinon.fakeServer.create();
@@ -7,7 +8,11 @@ describe('Podcast', function () {
       "Title":"Convert to Raid: The podcast for raiders in World of Warcraft",
       "Uri":"http://converttoraid.libsyn.com/rss",
       "Summary":"Convert to Raid examines everything about the end game in World of Warcraft.",
-      "Image":"http://assets.libsyn.com/content/5472375.jpg"
+      "Image":"http://assets.libsyn.com/content/5472375.jpg",
+      Metadata:{
+        Link:"http://podcatcher.cloudapp.net/api/podcasts/7ebdb1a0-c419-43c6-9129-4d1f8c7951ee",
+        SubscribeLink:"http://podcatcher.cloudapp.net/api/podcasts/7ebdb1a0-c419-43c6-9129-4d1f8c7951ee/subscribe"
+      }
     };
   });
 
@@ -18,7 +23,7 @@ describe('Podcast', function () {
 
   describe('save', function () {
     it('successfully posts a podcast', function (done) {
-      var url = "/api/podcast/",
+      var url = "/api/podcasts/",
         location = url + "some-id";
 
       this.podcast.set({Uri: 'some-uri'});
@@ -32,9 +37,10 @@ describe('Podcast', function () {
       this.server.respond();
 
       expect(this.server.requests[0].method).toEqual("POST");
-      expect(this.server.requests[0].url).toEqual("/api/podcast/");
+      expect(this.server.requests[0].url).toEqual("/api/podcasts/");
       expect(this.server.requests[0].responseHeaders.Location).toEqual(location);
       expect(JSON.parse(this.server.requests[0].responseText).Id).toEqual(this.podcast.attributes.Id);
+      expect(JSON.parse(this.server.requests[0].responseText).Metadata.Link).toEqual(this.podcast.url());
     });
 
   });

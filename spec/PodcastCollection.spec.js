@@ -1,5 +1,7 @@
 describe('PodcastCollection', function () {
   beforeEach(function () {
+    Podcatcher.baseUrl = '';
+
     this.collection = new Podcatcher.PodcastCollection();
 
     this.response =

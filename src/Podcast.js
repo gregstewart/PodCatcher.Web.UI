@@ -1,7 +1,14 @@
 var Podcatcher = Podcatcher || {};
 
 Podcatcher.Podcast = Backbone.Model.extend({
-  url: '/api/podcast/',
+  url: function () {
+    var metadata = this.get('Metadata');
+
+    if(metadata && metadata.Link) {
+      return this.attributes.Metadata.Link;
+    }
+    return Podcatcher.baseUrl+'/api/podcasts/';
+  },
 
   validate: function(attrs) {
 

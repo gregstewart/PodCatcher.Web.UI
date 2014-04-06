@@ -1,5 +1,7 @@
 var Podcatcher = Podcatcher || {};
 
 Podcatcher.PodcastCollection = Backbone.Collection.extend({
-  url: '/api/podcast/'
+  url: function () {
+    return Podcatcher.baseUrl + '/api/podcasts/';
+  }
 });
