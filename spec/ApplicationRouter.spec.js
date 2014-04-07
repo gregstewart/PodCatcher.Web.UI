@@ -87,20 +87,26 @@ describe('APPLICATION ROUTER', function () {
 
     });
 
-    it('sets up the episode collection and fetches the episodes', function () {
+    it('sets up the episode collection, fetches the episodes and creates the episode view', function () {
       var collection = new Backbone.Collection();
           collection.fetch = function (id) {
             return this;
           };
       var episodeFetchSpy = sinon.spy(collection, 'fetch'),
-          episodeCollectionStub = sinon.stub(Podcatcher, 'EpisodeCollection').returns(collection);
+          episodeCollectionStub = sinon.stub(Podcatcher, 'EpisodeCollection').returns(collection),
+          episodesViewStub = sinon.stub(Podcatcher, "EpisodeListView").returns(new Backbone.View());
+
 
       this.router.podcastDetail(this.id);
 
       expect(episodeFetchSpy.called).toBe(true);
+      expect(episodesViewStub.calledOnce).toBe(true);
+      expect(episodesViewStub.calledWith({collection: collection})).toBe(true);
+
 
       episodeCollectionStub.restore();
       episodeFetchSpy.restore();
+      episodesViewStub.restore();
     });
   });
 });
