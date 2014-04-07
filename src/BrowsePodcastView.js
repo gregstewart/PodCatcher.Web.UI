@@ -4,6 +4,7 @@ Podcatcher.BrowsePodcastView = Backbone.View.extend({
   tagName: 'article',
   className: 'podcast browse-podcasts',
   template : _.template('<ul class="podcasts"></ul>'),
+  listElementTemplate : _.template('<li class="podcast"></li>'),
   notificationTemplate : _.template('<div class="notification"></div>'),
 
   initialize: function (options) {
@@ -32,6 +33,6 @@ Podcatcher.BrowsePodcastView = Backbone.View.extend({
 
   addPodcastView: function (podcast) {
     var view = new Podcatcher.PodcastView({model: podcast});
-    return view.render().el;
+    return $(this.listElementTemplate()).html(view.render().el);
   }
 });

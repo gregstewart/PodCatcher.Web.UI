@@ -19,7 +19,7 @@ describe('BROWSE PODCAST VIEW', function () {
     beforeEach(function () {
       this.podcastView = new Backbone.View();
       this.podcastView.render = function () {
-        this.el = document.createElement('li');
+        this.el = document.createElement('div');
         return this;
       };
       this.podcastViewRenderSpy = sinon.spy(this.podcastView, 'render');

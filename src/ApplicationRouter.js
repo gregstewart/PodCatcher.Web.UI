@@ -34,9 +34,12 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
 
   podcastDetail: function (id) {
     this.resetViews();
-    var model = this.collection.findWhere({Id: id});
-    var view = new Podcatcher.PodcastDetailView({model: model, vent: this.vent});
-
+    if (id) {
+      var model = this.collection.findWhere({Id: id});
+      // handle no models, i.e. you went to uri without going through browse
+      var view = new Podcatcher.PodcastDetailView({model: model});
+      view.render();
+    }
   },
 
   resetViews: function () {

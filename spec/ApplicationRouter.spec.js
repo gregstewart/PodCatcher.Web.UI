@@ -54,29 +54,37 @@ describe('APPLICATION ROUTER', function () {
   });
 
   describe('podcast detail route', function () {
+    beforeEach(function () {
+      this.id = 1;
+      this.model = new Backbone.Model({Id: this.id});
+      this.view = new Backbone.View();
+      this.podcastStub = sinon.stub(Podcatcher, 'Podcast').returns(this.model);
+      this.podcastDetailViewStub = sinon.stub(Podcatcher, 'PodcastDetailView').returns(this.view);
+      this.view.render = sinon.spy();
+      this.router.collection.add(this.model);
+    });
+
+    afterEach(function () {
+      this.podcastDetailViewStub.restore();
+      this.podcastStub.restore();
+    });
 
     it('calls the hide all method before calling it\' s view render', function () {
       var resetViewsStub = sinon.stub(this.router, 'resetViews');
 
-      this.router.podcastDetail();
+      this.router.podcastDetail(this.id);
 
       expect(resetViewsStub.calledOnce).toBe(true);
     });
 
     it('finds the model requested and sets up the view when triggered', function () {
-      var id = 1;
-      var model = new Backbone.Model({Id: id}),
-          podcastStub = sinon.stub(Podcatcher, 'Podcast').returns(model),
-          podcastDetailViewStub = sinon.stub(Podcatcher, 'PodcastDetailView').returns(new Backbone.View());
-      this.router.collection.add(model);
 
-      this.router.podcastDetail(id);
+      this.router.podcastDetail(this.id);
 
-      expect(podcastDetailViewStub.calledOnce).toBe(true);
-      expect(podcastDetailViewStub.calledWith({model: model, vent: this.vent})).toBe(true);
+      expect(this.podcastDetailViewStub.calledOnce).toBe(true);
+      expect(this.podcastDetailViewStub.calledWith({model: this.model})).toBe(true);
+      expect(this.view.render.called).toBe(true);
 
-      podcastDetailViewStub.restore();
-      podcastStub.restore();
     });
   });
 });

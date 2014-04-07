@@ -99,8 +99,10 @@ describe('APPLICATION ROUTES', function () {
       var self = this,
           pushStateStub = sinon.stub(window.history, 'pushState', function (data, title, url) {
             expect(url).toEqual('/podcast/detail/'+id);
+            //console.log(self.router);
             self.router.podcastDetail(id);
           }),
+          viewStub = sinon.stub(Podcatcher,'PodcastDetailView').returns(new Backbone.View());
           id = 1;
 
 
@@ -111,6 +113,7 @@ describe('APPLICATION ROUTES', function () {
       expect(this.podcastDetailRouteStub.calledWith(id)).toBe(true);
 
       pushStateStub.restore();
+      viewStub.restore();
     });
   });
 

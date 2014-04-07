@@ -15,7 +15,7 @@ describe('PODCAST VIEW', function () {
   });
 
   it('creates the base list element', function () {
-    expect(this.view.el.tagName).toBe('LI');
+    expect(this.view.el.tagName).toBe('DIV');
   });
 
   it('the element has the right class name', function () {
