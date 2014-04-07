@@ -7,7 +7,7 @@ Podcatcher.Podcast = Backbone.Model.extend({
     if(metadata && metadata.Link) {
       return this.attributes.Metadata.Link;
     }
-    return Podcatcher.baseUrl+'/api/podcasts';
+    return (this.get('Id')) ?  Podcatcher.baseUrl+'/api/podcasts/' + this.get('Id') : Podcatcher.baseUrl+'/api/podcasts';
   },
 
   validate: function(attrs) {

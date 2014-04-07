@@ -67,4 +67,25 @@ describe('Podcast', function () {
       expect(error.calledWith(this.podcast, "cannot have empty Uri")).toBe(true);
     });
   });
+
+  describe('Build Url', function () {
+    it('by default has a base URL', function () {
+      var model = new Podcatcher.Podcast();
+
+      expect(model.url()).toBe(Podcatcher.baseUrl+'/api/podcasts');
+    });
+
+    it('when created with an Id has a specific podcast URL', function () {
+      var model = new Podcatcher.Podcast({Id: 1});
+
+      expect(model.url()).toBe(Podcatcher.baseUrl+'/api/podcasts/'+1);
+    });
+
+    it('has a url from the metadata when created from the service', function () {
+      var model = new Podcatcher.Podcast(this.result);
+
+      expect(model.url()).toBe(this.result.Metadata.Link);
+    });
+  });
+
 });

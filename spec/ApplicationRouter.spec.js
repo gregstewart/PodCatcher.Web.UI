@@ -57,6 +57,9 @@ describe('APPLICATION ROUTER', function () {
     beforeEach(function () {
       this.id = 1;
       this.model = new Backbone.Model({Id: this.id});
+      this.model.fetch = function (id) {
+        return new Backbone.Model({Id: id});
+      };
       this.view = new Backbone.View();
       this.podcastStub = sinon.stub(Podcatcher, 'Podcast').returns(this.model);
       this.podcastDetailViewStub = sinon.stub(Podcatcher, 'PodcastDetailView').returns(this.view);
@@ -85,6 +88,15 @@ describe('APPLICATION ROUTER', function () {
       expect(this.podcastDetailViewStub.calledWith({model: this.model})).toBe(true);
       expect(this.view.render.called).toBe(true);
 
+    });
+
+    it('should fetch the model if it\' not in the collection', function () {
+      var modelFetchSpy = sinon.spy(this.model, 'fetch');
+      this.router.collection.reset();
+
+      this.router.podcastDetail(this.id);
+
+      expect(this.model.fetch.called).toBe(true);
     });
 
     it('sets up the episode collection, fetches the episodes and creates the episode view', function () {

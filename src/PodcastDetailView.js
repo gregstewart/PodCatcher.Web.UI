@@ -6,6 +6,7 @@ Podcatcher.PodcastDetailView = Backbone.View.extend({
 
   initialize: function (options) {
     this.model = options.model;
+    this.listenTo(this.model, 'change', this.render);
   },
 
   render: function () {
