@@ -20,7 +20,7 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
   browse: function () {
     this.resetViews();
 
-    var view = new Podcatcher.BrowsePodcastView({collection: this.collection});
+    var view = new Podcatcher.PodcastListView({collection: this.collection});
     this.collection.fetch();
   },
 

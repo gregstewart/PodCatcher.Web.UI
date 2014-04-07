@@ -1,6 +1,6 @@
 var Podcatcher = Podcatcher || {};
 
-Podcatcher.BrowsePodcastView = Backbone.View.extend({
+Podcatcher.PodcastListView = Backbone.View.extend({
   tagName: 'article',
   className: 'podcast browse-podcasts',
   template : _.template('<ul class="podcasts"></ul>'),

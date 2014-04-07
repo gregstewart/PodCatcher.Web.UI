@@ -41,7 +41,7 @@ describe('APPLICATION ROUTER', function () {
 
     it('sets up the browse view', function () {
       var collectionStub = sinon.stub(this.router.collection, 'fetch').returns(null);
-      var browsePodcastViewStub = sinon.stub(Podcatcher, "BrowsePodcastView").returns(new Backbone.View());
+      var browsePodcastViewStub = sinon.stub(Podcatcher, "PodcastListView").returns(new Backbone.View());
 
       this.router.browse();
 

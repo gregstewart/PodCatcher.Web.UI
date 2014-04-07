@@ -1,7 +1,7 @@
 describe('BROWSE PODCAST VIEW', function () {
   beforeEach(function () {
     this.collection = new Backbone.Collection();
-    this.view = new Podcatcher.BrowsePodcastView({collection: this.collection});
+    this.view = new Podcatcher.PodcastListView({collection: this.collection});
   });
 
   describe('init view', function () {
