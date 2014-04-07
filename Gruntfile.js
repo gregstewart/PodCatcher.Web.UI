@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
-      all: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js']
+      all: ['Gruntfile.js', 'src/js/**/*.js', 'spec/**/*.js']
     },
     karma: {
       unit: {
@@ -16,15 +16,33 @@ module.exports = function(grunt) {
     },
     copy: {
       build: {
-        cwd: 'src',
+        cwd: 'src/js',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/js/',
+        dest: '../PodCatcher.Web/public/js',
         expand: true
       },
-      vendor: {
-        cwd: 'vendor',
+      vendorJs: {
+        cwd: 'vendor/js',
         src: [ '**' ],
         dest: '../PodCatcher.Web/public/js/vendor',
+        expand: true
+      },
+      vendorCss: {
+        cwd: 'vendor/css',
+        src: [ '**' ],
+        dest: '../PodCatcher.Web/public/css/vendor',
+        expand: true
+      },
+      vendorFonts: {
+        cwd: 'vendor/fonts',
+        src: [ '**' ],
+        dest: '../PodCatcher.Web/public/fonts ',
+        expand: true
+      },
+      vendorHtml: {
+        cwd: 'src/html',
+        src: [ '**' ],
+        dest: '../PodCatcher.Web/public/',
         expand: true
       }
     }

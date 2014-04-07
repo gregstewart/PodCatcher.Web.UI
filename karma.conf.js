@@ -17,11 +17,11 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files : [
       'lib/sinon-1.7.3.js',
-      'vendor/jquery-1.8.2.min.js',
-      'vendor/lodash.underscore.min.js',
-      'vendor/backbone-min.js',
+      'vendor/js/jquery-1.8.2.min.js',
+      'vendor/js/lodash.underscore.min.js',
+      'vendor/js/backbone-min.js',
       'helper/SpecHelper.js',
-      {pattern: 'src/*.js'},
+      {pattern: 'src/js/*.js'},
       {pattern: 'spec/**/*.js'}
     ],
 
