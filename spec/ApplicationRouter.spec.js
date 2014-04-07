@@ -86,5 +86,21 @@ describe('APPLICATION ROUTER', function () {
       expect(this.view.render.called).toBe(true);
 
     });
+
+    it('sets up the episode collection and fetches the episodes', function () {
+      var collection = new Backbone.Collection();
+          collection.fetch = function (id) {
+            return this;
+          };
+      var episodeFetchSpy = sinon.spy(collection, 'fetch'),
+          episodeCollectionStub = sinon.stub(Podcatcher, 'EpisodeCollection').returns(collection);
+
+      this.router.podcastDetail(this.id);
+
+      expect(episodeFetchSpy.called).toBe(true);
+
+      episodeCollectionStub.restore();
+      episodeFetchSpy.restore();
+    });
   });
 });
