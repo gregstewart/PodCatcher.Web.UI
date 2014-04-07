@@ -1,4 +1,4 @@
-describe('EpisodeCollection', function () {
+describe('EPISODE COLLECTION', function () {
   beforeEach(function () {
     Podcatcher.baseUrl = '';
     this.id = '7ebdb1a0-c419-43c6-9129-4d1f8c7951ee';

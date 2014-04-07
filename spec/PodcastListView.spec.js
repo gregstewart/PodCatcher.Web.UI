@@ -1,4 +1,4 @@
-describe('BROWSE PODCAST VIEW', function () {
+describe('PODCAST LIST VIEW', function () {
   beforeEach(function () {
     this.collection = new Backbone.Collection();
     this.view = new Podcatcher.PodcastListView({collection: this.collection});
