@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       vendorFonts: {
         cwd: 'vendor/fonts',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/fonts ',
+        dest: '../PodCatcher.Web/public/fonts',
         expand: true
       },
       vendorHtml: {
