@@ -2,11 +2,6 @@ describe('EPISODE LIST VIEW', function () {
   beforeEach(function () {
     this.collection = new Backbone.Collection();
     this.view = new Podcatcher.EpisodeListView({collection: this.collection});
-//    sinon.stub($, 'mediaelement').returns(null);
-  });
-
-  afterEach(function () {
-//    $.mediaelement();
   });
 
   describe('init view', function () {
@@ -30,8 +25,8 @@ describe('EPISODE LIST VIEW', function () {
       this.episodeViewRenderSpy = sinon.spy(this.episodeView, 'render');
       this.episodeViewStub = sinon.stub(Podcatcher, 'EpisodeView').returns(this.episodeView);
 
-      this.episodeOne = new Backbone.Model({id: 1});
-      this.episodeTwo = new Backbone.Model({id: 2});
+      this.episodeOne = new Backbone.Model({Id: 1});
+      this.episodeTwo = new Backbone.Model({Id: 2});
 
     });
 
@@ -70,6 +65,13 @@ describe('EPISODE LIST VIEW', function () {
 
       it('appends the episode to the episode list', function () {
        expect($(this.view.el).find('ul.episodes').children().length).toEqual(2);
+      });
+
+      it('has a link to the episode detail view', function () {
+        var hyperLink = $(this.view.el).find('ul > li > a');
+
+        expect(hyperLink.length).toBe(2);
+        expect($(hyperLink[0]).attr('href')).toBe('#episode/detail/1');
       });
     });
 
