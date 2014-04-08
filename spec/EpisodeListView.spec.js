@@ -71,7 +71,7 @@ describe('EPISODE LIST VIEW', function () {
         var hyperLink = $(this.view.el).find('ul > li > a');
 
         expect(hyperLink.length).toBe(2);
-        expect($(hyperLink[0]).attr('href')).toBe('#episode/detail/1');
+        expect($(hyperLink[0]).attr('href')).toBe('#episode/1');
       });
     });
 

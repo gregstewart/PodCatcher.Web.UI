@@ -100,25 +100,59 @@ describe('APPLICATION ROUTER', function () {
     });
 
     it('sets up the episode collection, fetches the episodes and creates the episode view', function () {
-      var collection = new Backbone.Collection();
-          collection.fetch = function (id) {
-            return this;
-          };
-      var episodeFetchSpy = sinon.spy(collection, 'fetch'),
-          episodeCollectionStub = sinon.stub(Podcatcher, 'EpisodeCollection').returns(collection),
+      this.router.episodeCollection = new Backbone.Collection();
+      this.router.episodeCollection.fetch = function (id) {
+        return this;
+      };
+      var episodeFetchSpy = sinon.spy(this.router.episodeCollection, 'fetch'),
+          episodeCollectionStub = sinon.stub(Podcatcher, 'EpisodeCollection').returns(this.router.episodeCollection),
           episodesViewStub = sinon.stub(Podcatcher, "EpisodeListView").returns(new Backbone.View());
-
 
       this.router.podcastDetail(this.id);
 
       expect(episodeFetchSpy.called).toBe(true);
       expect(episodesViewStub.calledOnce).toBe(true);
-      expect(episodesViewStub.calledWith({collection: collection})).toBe(true);
+      expect(episodesViewStub.calledWith({collection: this.router.episodeCollection})).toBe(true);
 
 
       episodeCollectionStub.restore();
       episodeFetchSpy.restore();
       episodesViewStub.restore();
+    });
+  });
+
+  describe('episode detail route', function () {
+    beforeEach(function () {
+      this.id = 1;
+      this.model = new Backbone.Model({Id: this.id});
+      this.view = new Backbone.View();
+      this.modelStub = sinon.stub(Podcatcher, 'Episode').returns(this.model);
+      this.viewStub = sinon.stub(Podcatcher, 'EpisodeDetailView').returns(this.view);
+      this.view.render = sinon.spy();
+      this.router.episodeCollection.add(this.model);
+    });
+
+    afterEach(function () {
+      this.modelStub.restore();
+      this.viewStub.restore();
+    });
+
+    it('calls the hide all method before calling it\' s view render', function () {
+      var resetViewsStub = sinon.stub(this.router, 'resetViews');
+
+      this.router.episodeDetail(this.id);
+
+      expect(resetViewsStub.calledOnce).toBe(true);
+    });
+
+    it('finds the model requested and sets up the view when triggered', function () {
+
+      this.router.episodeDetail(this.id);
+
+      expect(this.viewStub.calledOnce).toBe(true);
+      expect(this.viewStub.calledWith({model: this.model})).toBe(true);
+      expect(this.view.render.called).toBe(true);
+
     });
   });
 });

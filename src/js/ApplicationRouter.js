@@ -5,12 +5,14 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
     '': 'index',
     'browse': 'browse',
     'add-podcast': 'addPodcast',
-    'podcast/detail/:id': 'podcastDetail'
+    'podcast/detail/:id': 'podcastDetail',
+    'episode/:id': 'episodeDetail'
   },
 
   initialize: function(options) {
     this.vent = options.vent;
     this.collection = new Podcatcher.PodcastCollection();
+    this.episodeCollection = new Podcatcher.EpisodeCollection();
   },
 
   index: function () {
@@ -44,14 +46,22 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
         model = new Podcatcher.Podcast({Id: id});
         model.fetch();
       }
-
       view = new Podcatcher.PodcastDetailView({model: model});
-      episodeCollection = new Podcatcher.EpisodeCollection();
-      episodeView = new Podcatcher.EpisodeListView({collection: episodeCollection});
+
+      episodeView = new Podcatcher.EpisodeListView({collection: this.episodeCollection});
 
       view.render();
-      episodeCollection.fetch({podcastId:id});
+      this.episodeCollection.fetch({podcastId:id});
     }
+  },
+
+  episodeDetail: function (id) {
+    this.resetViews();
+
+    var model = this.episodeCollection.findWhere({Id: id}),
+        view = new Podcatcher.EpisodeDetailView({model: model});
+
+    view.render();
   },
 
   resetViews: function () {

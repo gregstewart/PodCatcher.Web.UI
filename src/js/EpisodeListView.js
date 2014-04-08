@@ -5,7 +5,7 @@ Podcatcher.EpisodeListView = Backbone.View.extend({
   className: 'episodes list-episodes',
   template : _.template('<ul class="episodes"></ul>'),
   listElementTemplate : _.template('<li class="episode"></li>'),
-  episodeDetailLinkTemplate : _.template('<a class="episode-detail-link" href="#episode/detail/<%= Id %>">View details</a>'),
+  episodeDetailLinkTemplate : _.template('<a class="episode-detail-link" href="#episode/<%= Id %>">View details</a>'),
   notificationTemplate : _.template('<div class="notification"></div>'),
 
   initialize: function (options) {
@@ -32,7 +32,7 @@ Podcatcher.EpisodeListView = Backbone.View.extend({
       notification.html('No episodes found');
     }
 
-    $('#podcatcher').append(output);
+    $('.podcast.podcast-details').append(output);
     return this;
   },
 
