@@ -2,6 +2,11 @@ describe('EPISODE LIST VIEW', function () {
   beforeEach(function () {
     this.collection = new Backbone.Collection();
     this.view = new Podcatcher.EpisodeListView({collection: this.collection});
+//    sinon.stub($, 'mediaelement').returns(null);
+  });
+
+  afterEach(function () {
+//    $.mediaelement();
   });
 
   describe('init view', function () {

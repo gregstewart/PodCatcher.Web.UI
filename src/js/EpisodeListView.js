@@ -27,6 +27,7 @@ Podcatcher.EpisodeListView = Backbone.View.extend({
       notification.html('No episodes found');
     }
 
+//    $('audio').mediaelementplayer(/* Options */);
     $('#podcatcher').append(output);
     return this;
   },
