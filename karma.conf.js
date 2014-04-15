@@ -3,19 +3,19 @@ module.exports = function (config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
-    basePath : './',
+    basePath: './',
 
     // frameworks to use
     frameworks: ['jasmine'],
 
-    plugins:[
+    plugins: [
       'karma-jasmine',
       'karma-coverage',
       'karma-phantomjs-launcher'
     ],
 
     // list of files / patterns to load in the browser
-    files : [
+    files: [
       'lib/sinon-1.7.3.js',
       'vendor/jquery-1.8.2.min.js',
       'vendor/lodash.underscore.min.js',
@@ -27,43 +27,46 @@ module.exports = function (config) {
 
 
     // list of files to exclude
-    exclude : [
+    exclude: [
 
     ],
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit'
-    reporters : ['progress','coverage'],
+    reporters: ['progress', 'coverage'],
 
-    preprocessors : {
-        '**/src/**/*.js': 'coverage'
+    preprocessors: {
+      '**/src/**/*.js': 'coverage'
     },
 
-    coverageReporter : {
-        type : 'html',
-        dir : 'coverage/'
+    coverageReporter: {
+      reporters: [
+        { type: 'html'},
+        { type: 'text-summary' }
+      ],
+      dir: 'coverage/'
     },
 
     // web server port
-    port : 9876,
+    port: 9876,
 
 
     // cli runner port
-    runnerPort : 9100,
+    runnerPort: 9100,
 
 
     // enable / disable colors in the output (reporters and logs)
-    colors : true,
+    colors: true,
 
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-    logLevel : LOG_INFO,
+    logLevel: LOG_INFO,
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch : true,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:
@@ -74,15 +77,15 @@ module.exports = function (config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers : ['PhantomJS'],
+    browsers: ['PhantomJS'],
 
 
     // If browser does not capture in given timeout [ms], kill it
-    captureTimeout : 60000,
+    captureTimeout: 60000,
 
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun : false
+    singleRun: false
   });
 };
