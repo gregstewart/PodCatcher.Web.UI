@@ -18,31 +18,31 @@ module.exports = function(grunt) {
       build: {
         cwd: 'src/js',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/js',
+        dest: 'dist/js',
         expand: true
       },
       vendorJs: {
         cwd: 'vendor/js',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/js/vendor',
+        dest: 'dist/js/vendor',
         expand: true
       },
       vendorCss: {
         cwd: 'vendor/css',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/css/vendor',
+        dest: 'dist/css/vendor',
         expand: true
       },
       vendorFonts: {
         cwd: 'vendor/fonts',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/fonts',
+        dest: 'dist/fonts',
         expand: true
       },
       vendorHtml: {
         cwd: 'src/html',
         src: [ '**' ],
-        dest: '../PodCatcher.Web/public/',
+        dest: 'dist/',
         expand: true
       }
     }
