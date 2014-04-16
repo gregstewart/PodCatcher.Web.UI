@@ -20,6 +20,7 @@ module.exports = function (config) {
       'vendor/js/jquery-1.8.2.min.js',
       'vendor/js/lodash.underscore.min.js',
       'vendor/js/backbone-min.js',
+      'vendor/js/mediaelement-and-player.min.js',
       'helper/SpecHelper.js',
       {pattern: 'src/js/*.js'},
       {pattern: 'spec/**/*.js'}

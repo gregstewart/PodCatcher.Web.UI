@@ -8,6 +8,8 @@ Podcatcher.EpisodeDetailView = Backbone.View.extend({
     var view = this.addEpisodeView(this.model);
     $(view).addClass('jumbotron');
     $('#podcatcher').append(this.$el.html(view));
+    $('audio').mediaelementplayer();
+
     return this;
   },
 
