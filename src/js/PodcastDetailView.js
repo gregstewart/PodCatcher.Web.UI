@@ -11,8 +11,8 @@ Podcatcher.PodcastDetailView = Backbone.View.extend({
 
   render: function () {
     var view = this.addPodcastView(this.model);
-
-    $('#podcatcher').html(view);
+    $(view).addClass('jumbotron');
+    $('#podcatcher').append(this.$el.html(view));
     return this;
   },
 

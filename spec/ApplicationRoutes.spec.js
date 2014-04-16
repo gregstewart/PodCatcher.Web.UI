@@ -6,6 +6,7 @@ describe('APPLICATION ROUTES', function () {
     this.browseRouteStub = sinon.stub(this.router, 'browse');
     this.addPodcastRouteStub = sinon.stub(this.router, 'addPodcast');
     this.podcastDetailRouteStub = sinon.stub(this.router, 'podcastDetail');
+    this.episodeDetailRouteStub = sinon.stub(this.router, 'episodeDetail');
     this.resetViewsStub = sinon.stub(this.router, 'resetViews');
 
     Backbone.history.start({silent: true, pushState: true});
@@ -18,12 +19,13 @@ describe('APPLICATION ROUTES', function () {
     this.browseRouteStub.restore();
     this.addPodcastRouteStub.restore();
     this.podcastDetailRouteStub.restore();
+    this.episodeDetailRouteStub.restore();
     this.resetViewsStub.restore();
     this.router.navigate('elsewhere', {trigger: true});
   });
 
   it('Has the right amount of routes', function() {
-    expect(_.size(this.router.routes)).toEqual(4);
+    expect(_.size(this.router.routes)).toEqual(5);
   });
 
   describe('index route', function () {
@@ -99,7 +101,6 @@ describe('APPLICATION ROUTES', function () {
       var self = this,
           pushStateStub = sinon.stub(window.history, 'pushState', function (data, title, url) {
             expect(url).toEqual('/podcast/detail/'+id);
-            //console.log(self.router);
             self.router.podcastDetail(id);
           }),
           viewStub = sinon.stub(Podcatcher,'PodcastDetailView').returns(new Backbone.View());
@@ -111,6 +112,32 @@ describe('APPLICATION ROUTES', function () {
       expect(pushStateStub.called).toBe(true);
       expect(this.podcastDetailRouteStub.called).toBe(true);
       expect(this.podcastDetailRouteStub.calledWith(id)).toBe(true);
+
+      pushStateStub.restore();
+      viewStub.restore();
+    });
+  });
+
+  describe('episode/:id', function () {
+    it('episode/:id - route exists and points to the right method', function () {
+      expect(this.router.routes['episode/:id']).toEqual('episodeDetail');
+    });
+
+    it('calls the episodeDetail route by navigating to episode/:id', function () {
+      var self = this,
+          pushStateStub = sinon.stub(window.history, 'pushState', function (data, title, url) {
+            expect(url).toEqual('/episode/'+id);
+            self.router.episodeDetail(id);
+          }),
+          viewStub = sinon.stub(Podcatcher,'EpisodeView').returns(new Backbone.View());
+      id = 1;
+
+
+      this.router.navigate('episode/'+id, {trigger: true});
+
+      expect(pushStateStub.called).toBe(true);
+      expect(this.episodeDetailRouteStub.called).toBe(true);
+      expect(this.episodeDetailRouteStub.calledWith(id)).toBe(true);
 
       pushStateStub.restore();
       viewStub.restore();
