@@ -4,9 +4,9 @@ $(document).ready(function() {
       options.crossDomain = true;
     }
 
-    if (!options.xhrFields) {
-      options.xhrFields = {withCredentials:true};
-    }
+//    if (!options.xhrFields) {
+//      options.xhrFields = {withCredentials:true};
+//    }
   });
 
   var vent = _.extend({}, Backbone.Events);
