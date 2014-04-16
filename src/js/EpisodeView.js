@@ -1,7 +1,7 @@
 var Podcatcher = Podcatcher || {};
 
 Podcatcher.EpisodeView = Backbone.View.extend({
-  template : _.template('<h2><%= Title %> <small><%= PublicationDate %></small></h2><div><%= Description %></div><audio src="<%= MediaLink %>"></audio>'),
+  template : _.template('<h2><%= Title %> <small><%= PublicationDate %></small></h2><div><%= Description %></div><audio src="<%= MediaLink %>" preload="none"></audio>'),
   tagName: 'DIV',
   className: 'episode-detail',
 

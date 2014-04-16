@@ -37,7 +37,7 @@ describe('EPISODE VIEW', function () {
       this.view.render();
 
       expect(this.view.$el.html())
-          .toEqual('<h2>'+this.model.get('Title')+' <small>'+this.model.get('PublicationDate')+'</small></h2><div>'+this.model.get('Description')+'</div><audio src="'+this.model.get('MediaLink')+'"></audio>');
+          .toEqual('<h2>'+this.model.get('Title')+' <small>'+this.model.get('PublicationDate')+'</small></h2><div>'+this.model.get('Description')+'</div><audio src="'+this.model.get('MediaLink')+'" preload="none"></audio>');
     });
   });
 });
