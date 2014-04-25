@@ -2,6 +2,10 @@
     margin: 20px auto;
 }
 
+.jumbotron {
+    padding: 0;
+}
+
 ul.episodes, ul.podcasts {
     list-style: none;
     padding: 0 20px;
@@ -15,6 +19,7 @@ li.podcast {
 }
 
 .podcast-detail {
+    border-radius: 6px;
     background-size: cover;
     opacity: 0.8;
 }
@@ -27,4 +32,5 @@ li.podcast {
     padding: 20px;
     background-color: #000;
     opacity: 0.8;
+    border-radius: 6px;
 }
