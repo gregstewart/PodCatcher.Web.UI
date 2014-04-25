@@ -51,6 +51,11 @@ Podcatcher.ApplicationRouter = Backbone.Router.extend({
       episodeView = new Podcatcher.EpisodeListView({collection: this.episodeCollection});
 
       view.render();
+      // consider using a defered promise here, e.g.
+      // var this.collection.deferred = this.collection.fetch()
+      // this.collection.deferred.done(function () {self.collection.deferred})
+      // or
+      // listening on reset event should work too
       this.episodeCollection.fetch({podcastId:id});
     }
   },
