@@ -6,7 +6,11 @@ Podcatcher.PodcastView = Backbone.View.extend({
   className: 'podcast-detail',
 
   render: function () {
-    var output = this.template({Id: this.model.get('Id'), Title: this.model.get('Title'), Summary: this.model.get('Summary')});
+    var output = this.template({Id: this.model.get('Id'),
+      Image: this.model.get('Image'),
+      Title: this.model.get('Title'),
+      Summary: this.model.get('Summary')});
+    this.$el.css({background: 'url(' + this.model.get('Image') + ') no-repeat center'});
     this.$el.html(output);
 
     return this;

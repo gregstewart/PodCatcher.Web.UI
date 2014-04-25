@@ -1,0 +1,30 @@
+.mejs-container {
+    margin: 20px auto;
+}
+
+ul.episodes, ul.podcasts {
+    list-style: none;
+    padding: 0 20px;
+}
+
+li.podcast {
+    background: no-repeat center;
+    background-size: cover;
+    padding: 20px;
+    opacity: 0.8;
+}
+
+.podcast-detail {
+    background-size: cover;
+    opacity: 0.8;
+}
+
+.podcast-detail > a {
+    color: #fff;
+}
+
+.podcast-detail > a > div {
+    padding: 20px;
+    background-color: #000;
+    opacity: 0.8;
+}

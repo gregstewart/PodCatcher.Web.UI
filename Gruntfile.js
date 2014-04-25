@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       }
     },
     copy: {
-      build: {
+      js: {
         cwd: 'src/js',
         src: [ '**' ],
         dest: 'dist/js',
@@ -37,6 +37,12 @@ module.exports = function(grunt) {
         cwd: 'vendor/fonts',
         src: [ '**' ],
         dest: 'dist/fonts',
+        expand: true
+      },
+      css: {
+        cwd: 'src/css',
+        src: [ '**' ],
+        dest: 'dist/css',
         expand: true
       },
       html: {
