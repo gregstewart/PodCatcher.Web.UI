@@ -10,7 +10,7 @@ Podcatcher.EpisodeListView = Backbone.View.extend({
 
   initialize: function (options) {
     this.collection = options.collection;
-    this.listenTo(this.collection, 'reset', this.render);
+    this.listenTo(this.collection, 'sync', this.render);
   },
 
   render: function () {
