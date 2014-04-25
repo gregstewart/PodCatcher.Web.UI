@@ -34,3 +34,7 @@ li.podcast {
     opacity: 0.8;
     border-radius: 6px;
 }
+
+.episode-detail {
+    padding: 20px;
+}
