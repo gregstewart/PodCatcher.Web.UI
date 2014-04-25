@@ -39,8 +39,14 @@ module.exports = function(grunt) {
         dest: 'dist/fonts',
         expand: true
       },
-      vendorHtml: {
+      html: {
         cwd: 'src/html',
+        src: [ '**' ],
+        dest: 'dist/',
+        expand: true
+      },
+      config: {
+        cwd: 'src/config',
         src: [ '**' ],
         dest: 'dist/',
         expand: true
