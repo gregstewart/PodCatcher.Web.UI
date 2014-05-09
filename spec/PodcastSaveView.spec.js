@@ -101,7 +101,7 @@ describe('Podcast Save View', function () {
 
           expect(notification.hasClass('hidden')).toBe(false);
           expect(notification.hasClass('success')).toBe(true);
-          expect(notification.html()).toBe('Podcast '+result.Podcast.Title+' added, <a href="#podcast/details/'+result.Podcast.Id+'">you can view it here</a>');
+          expect(notification.html()).toBe('Podcast '+result.Podcast.Title+' added, <a href="#podcast/detail/'+result.Podcast.Id+'">you can view it here</a>');
 
         });
       });
