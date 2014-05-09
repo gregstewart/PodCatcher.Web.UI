@@ -51,7 +51,7 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
 
   podcastAdded: function (data) {
     var notification = this.$el.find('.notification'),
-        template = _.template('Podcast <%= Title %> added, <a href="podcast/details/<%= Id %>">you can view it here</a>');
+        template = _.template('Podcast <%= Title %> added, <a href="#podcast/details/<%= Id %>">you can view it here</a>');
 
     notification.addClass('success');
     notification.removeClass('hidden');
