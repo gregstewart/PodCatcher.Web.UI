@@ -32,7 +32,7 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
 
     this.model.set({Uri: this.$el.find('input').val()});
 
-    this.model.save(null, {success: self.successHandler, error: self.errorHandler}, {wait: true});
+    this.model.save(null, {success: _.bind(this.successHandler, this), error: _.bind(this.errorHandler, this)}, {wait: true});
 
     if(!this.model.isValid()) {
       notification.removeClass('hidden');
