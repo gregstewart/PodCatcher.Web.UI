@@ -87,11 +87,13 @@ describe('Podcast Save View', function () {
         });
 
         it('shows a message with a link', function () {
-          var result = { "Id":"7ebdb1a0-c419-43c6-9129-4d1f8c7951ee",
-                "Title":"Convert to Raid: The podcast for raiders in World of Warcraft",
-                "Uri":"http://converttoraid.libsyn.com/rss",
-                "Summary":"Convert to Raid examines everything about the end game in World of Warcraft.",
-                "Image":"http://assets.libsyn.com/content/5472375.jpg"
+          var result = { Podcast: {
+                    "Id":"7ebdb1a0-c419-43c6-9129-4d1f8c7951ee",
+                    "Title":"Convert to Raid: The podcast for raiders in World of Warcraft",
+                    "Uri":"http://converttoraid.libsyn.com/rss",
+                    "Summary":"Convert to Raid examines everything about the end game in World of Warcraft.",
+                    "Image":"http://assets.libsyn.com/content/5472375.jpg"
+                  }
               },
               notification = this.view.$el.find('.notification');
 
@@ -99,7 +101,7 @@ describe('Podcast Save View', function () {
 
           expect(notification.hasClass('hidden')).toBe(false);
           expect(notification.hasClass('success')).toBe(true);
-          expect(notification.html()).toBe('Podcast '+result.Title+' added, <a href="#podcast/details/'+result.Id+'">you can view it here</a>');
+          expect(notification.html()).toBe('Podcast '+result.Podcast.Title+' added, <a href="#podcast/details/'+result.Podcast.Id+'">you can view it here</a>');
 
         });
       });

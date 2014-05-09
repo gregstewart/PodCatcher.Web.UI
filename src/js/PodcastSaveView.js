@@ -55,7 +55,7 @@ Podcatcher.PodcastSaveView = Backbone.View.extend({
 
     notification.addClass('success');
     notification.removeClass('hidden');
-    notification.html(template({Id: data.Id, Title: data.Title}));
+    notification.html(template({Id: data.Podcast.Id, Title: data.Podcast.Title}));
   },
 
   podcastNotAdded: function (data) {
